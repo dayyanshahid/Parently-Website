@@ -1,0 +1,11 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem;
+  background: #f8f9fa;
+}
+.hero h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}

@@ -1,0 +1,18 @@
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  padding: 3rem 1rem;
+  background: #eef2ff;
+  text-align: center;
+}
+
+.item h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.item p {
+  color: #374151;
+}
