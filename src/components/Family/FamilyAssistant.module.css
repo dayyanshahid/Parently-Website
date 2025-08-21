@@ -1,0 +1,61 @@
+.section {
+  padding: 4rem 2rem;
+  background: #fff;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 3rem;
+}
+
+.textContent {
+  flex: 0 0 45%; /* fixed 45% width */
+}
+
+.title {
+  font-size: 1.8rem; /* smaller */
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  color: black;
+}
+
+.textBlock {
+  margin-bottom: 0.4rem;
+}
+
+.subtitle {
+  font-size: 0.9rem; /* smaller */
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: black;
+}
+
+.paragraph {
+  font-size: 0.85rem; /* smaller */
+  color: black;
+  line-height: 1.4;
+}
+
+.devices {
+  flex: 0 0 55%; /* fixed 55% width */
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.device {
+  width: 100%; /* take full width of right side */
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.15));
+  margin-top: 150px; /* reduced margin so image is bigger in view */
+}
+
+.deviceMiddle {
+  transform: translateY(20px);
+}

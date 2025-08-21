@@ -1,6 +1,7 @@
+import React, { memo } from "react";
 import styles from "./Features.module.css";
 
-export default function Features() {
+function Features() {
   return (
     <section className={styles.features}>
       <h2 className={styles.heading}>Why Parently?</h2>
@@ -21,3 +22,5 @@ export default function Features() {
     </section>
   );
 }
+
+export default memo(Features);

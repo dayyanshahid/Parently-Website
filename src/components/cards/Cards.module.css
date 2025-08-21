@@ -1,0 +1,62 @@
+.cardsSection {
+  width: 100%;
+  /* padding: 4rem 2rem; */
+  background-color: #ffffff;
+}
+
+.cardsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.171);
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
+  background: linear-gradient(0deg, #ffffff 0%, #f1a4cc14 100%);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.081);
+}
+
+.iconCircle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2B60EA 0%, #EA479A 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #111;
+}
+
+.iconImage {
+    height: 30px;
+    width: 30px;
+    object-fit: contain;
+    display: block;
+    align-self: center;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
