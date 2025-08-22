@@ -2,6 +2,8 @@ import React, { memo } from "react";
 import styles from "./Hero.module.css";
 import phoneImage from "../../assets/IPHONEY.png";
 import { FaRegCheckCircle } from "react-icons/fa";
+import { BACKEND_ENABLED } from "../../config/env";
+import { submitWaitlist } from "../../services/waitlistService";
 
 function Hero() {
   const features = [
@@ -10,6 +12,50 @@ function Hero() {
     "Manage the endless to do’s and crazy family schedules",
     "Provide updates on the go via voice, chat or lists",
   ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log('[WAITLIST FORM] Form submitted');
+    
+    if (!BACKEND_ENABLED) {
+      console.log('[WAITLIST FORM] Backend disabled, preventing default only');
+      return;
+    }
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const payload = {
+      firstName: ((data.get('firstName') || data.get('first_name') || '')).toString().trim(),
+      lastName: ((data.get('lastName') || data.get('last_name') || '')).toString().trim(),
+      email: ((data.get('email') || '')).toString().trim().toLowerCase(),
+      country: ((data.get('country') || '')).toString().trim(),
+      phone: ((data.get('phone') || data.get('phone_number') || '')).toString().trim(),
+    };
+
+    console.log('[WAITLIST FORM] Extracted payload:', payload);
+
+    try {
+      const result = await submitWaitlist(payload);
+      console.log('[WAITLIST FORM] Submit result:', result);
+      
+      if (result.ok) {
+        console.log('[WAITLIST FORM] Successfully submitted to waitlist');
+        // Minimal UX feedback without changing styling structure
+        alert('Thanks! You are already on the waitlist.');
+      } else if (result.duplicate) {
+        console.log('[WAITLIST FORM] Email already registered');
+        // Show popup when server responds 409 Conflict (duplicate)
+        alert('You are already registered on the waitlist with this email.');
+      } else if (result.skipped) {
+        console.log('[WAITLIST FORM] Submission skipped (backend disabled)');
+      } else {
+        console.log('[WAITLIST FORM] Submission failed:', result.error);
+        alert(`Submission failed: ${result.error || 'Please try again later.'}`);
+      }
+    } catch (e) {
+      console.error('[WAITLIST FORM] Unexpected error:', e);
+    }
+  };
 
   return (
     <section className={styles.hero}>
@@ -22,7 +68,7 @@ function Hero() {
 
         </>
         <div className={styles.gradientTitle}>
-          <stong>Mental Load</stong>
+          <strong>Mental Load</strong>
         </div>
         <div className={styles.marketingText}>
           We understand the communication chaos parents face daily, and the juggle that comes with it. So we created Parently, your AI-powered Family Life Admin Assistant, designed to make life easier.
@@ -54,20 +100,20 @@ function Hero() {
 
         {/* Form container */}
         <div className={styles.formContainer}>
-          <form className={styles.heroForm} onSubmit={(e) => e.preventDefault()}>
+          <form className={styles.heroForm} onSubmit={handleSubmit}>
             {/* Name fields */}
             <div className={styles.inputRow}>
-              <input type="text" placeholder="First Name" required />
-              <input type="text" placeholder="Last Name" required />
+              <input name="firstName" type="text" placeholder="First Name" required autoComplete="given-name" />
+              <input name="lastName" type="text" placeholder="Last Name" required autoComplete="family-name" />
             </div>
 
             {/* Email field */}
-            <input type="email" placeholder="Email Address" required />
+            <input name="email" type="email" placeholder="Email Address" required autoComplete="email" />
 
             {/* Country & Phone */}
             <div className={styles.inputRow}>
-              <input type="text" placeholder="Country" required />
-              <input type="tel" placeholder="Phone Number" required />
+              <input name="country" type="text" placeholder="Country" required autoComplete="country-name" />
+              <input name="phone" type="tel" placeholder="Phone Number" required autoComplete="tel" />
             </div>
 
             {/* Checkboxes */}

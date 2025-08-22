@@ -36,11 +36,11 @@ const Waitlist = () => {
     const form = e.currentTarget;
     const data = new FormData(form);
     const payload = {
-      firstName: (data.get('firstName') || '').toString().trim(),
-      lastName: (data.get('lastName') || '').toString().trim(),
-      email: (data.get('email') || '').toString().trim().toLowerCase(),
-      country: (data.get('country') || '').toString().trim(),
-      phone: (data.get('phone') || '').toString().trim(),
+      firstName: ((data.get('firstName') || data.get('first_name') || '')).toString().trim(),
+      lastName: ((data.get('lastName') || data.get('last_name') || '')).toString().trim(),
+      email: ((data.get('email') || '')).toString().trim().toLowerCase(),
+      country: ((data.get('country') || '')).toString().trim(),
+      phone: ((data.get('phone') || data.get('phone_number') || '')).toString().trim(),
     };
 
     console.log('[WAITLIST FORM] Extracted payload:', payload);
@@ -51,12 +51,17 @@ const Waitlist = () => {
       
       if (result.ok) {
         console.log('[WAITLIST FORM] Successfully submitted to waitlist');
+        // Minimal UX feedback without changing styling structure
+        alert("Thanks! You're on the waitlist.");
       } else if (result.duplicate) {
         console.log('[WAITLIST FORM] Email already registered');
+        // Show popup when server responds 409 Conflict (duplicate)
+        alert('You are already registered on the waitlist with this email.');
       } else if (result.skipped) {
         console.log('[WAITLIST FORM] Submission skipped (backend disabled)');
       } else {
         console.log('[WAITLIST FORM] Submission failed:', result.error);
+        alert(`Submission failed: ${result.error || 'Please try again later.'}`);
       }
     } catch (e) {
       console.error('[WAITLIST FORM] Unexpected error:', e);
@@ -64,7 +69,7 @@ const Waitlist = () => {
   };
 
   return (
-    <section className={styles.section} aria-labelledby="waitlist-heading">
+    <section id="waitlist" className={styles.section} aria-labelledby="waitlist-heading">
       <div className={styles.container}>
         <h2 id="waitlist-heading" className={styles.heading}>
           Ready to reduce the load?

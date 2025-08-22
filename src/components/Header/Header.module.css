@@ -96,7 +96,7 @@
   }
 
   .headerLogo {
-    height: 2rem;
+    font-size: 2rem;
   }
 
   .headerText {
@@ -106,5 +106,14 @@
   .headerButton {
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerLogo {
+    font-size: 1.75rem;
+  }
+  .headersublogo {
+    font-size: 0.7rem;
   }
 }

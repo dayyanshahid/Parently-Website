@@ -18,7 +18,7 @@ export async function submitWaitlist(payload) {
   }
   assertBackendConfigured();
 
-  const url = `${API_BASE_URL}/waitlist`;
+  const url = `${API_BASE_URL}/wait_list`;
   console.log('[WAITLIST] Making POST request to:', url);
 
   try {

@@ -14,9 +14,18 @@ import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
 
 // Main landing page component
 function LandingPage() {
+  const handleContactClick = () => {
+    const el = document.getElementById('waitlist');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.location.hash = '#waitlist';
+    }
+  };
+
   return (
     <>
-      <Header/>
+      <Header onContactClick={handleContactClick} />
       <Hero />
       <Cards/>
       <FamilyAssistant/>
